@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -47,10 +47,10 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link active" href="#">Listar</a>
+        <a class="nav-link active" href="listar.php">Listar</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Cadastrar</a>
+        <a class="nav-link" href="cadastrar.php">Cadastrar</a>
       </li>
     <!--
       <li class="nav-item">

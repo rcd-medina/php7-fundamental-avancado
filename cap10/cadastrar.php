@@ -1,6 +1,12 @@
 
+<?php
+
+require_once("estados.php");
+
+?>
+
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -46,11 +52,11 @@
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link active" href="#">Listar</a>
+      <li class="nav-item">
+        <a class="nav-link" href="listar.php">Listar</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Cadastrar</a>
+        <a class="nav-link active" href="cadastrar.php">Cadastrar</a>
       </li>
     <!--
       <li class="nav-item">
@@ -77,6 +83,52 @@
 <main role="main" class="container">
 
   <div class="starter-template">
+      
+      <form style="text-align: left" action="" method="post">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome da pessoa" value=""/>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="idade">Idade</label>
+              <input class="form-control" type="idade" name="idade" id="idade" placeholder="Idade da pessoa" value=""/>
+            </div>
+
+            <div class="form-group col-md-8">
+              <label for="telefone">Telefone</label>
+              <input class="form-control" type="text" name="telefone" id="telefone" placeholder="Telefone da pessoa" value=""/>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="endereco">Endereço</label>
+          <input class="form-control" type="text" name="endereco" id="endereco" placeholder="Endereço da pessoa" value=""/>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label for="cidade">Cidade</label>
+            <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Cidade da pessoa" value=""/>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="estado">Estado</label>
+            <select class="form-control" name="estado" id="estado">
+<?php
+            foreach ($estados as $i => $uf) {
+              echo "<option value=\"$i\">$uf</option>";
+            }
+?>
+            </select>
+          </div>
+        </div>
+        <br>
+        <br>
+        <button class="btn btn-primary" type="submit">Enviar</button>
+        <button class="btn btn-warning" type="reset">Limpar</button>
+      </form>
       <!--
         <h1>Bootstrap starter template</h1>
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
