@@ -84,7 +84,7 @@ require_once("estados.php");
 
   <div class="starter-template">
       
-      <form style="text-align: left" action="" method="post">
+      <form style="text-align: left" action="salvar.php" method="post">
         <div class="form-group">
             <label for="nome">Nome</label>
             <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome da pessoa" value=""/>
