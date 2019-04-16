@@ -1,7 +1,26 @@
 
 <?php
+session_start();
 
 require_once("estados.php");
+
+$id = '';
+$nome = '';
+$idade = '';
+$telefone = '';
+$endereco = '';
+$cidade = '';
+$estado = '';
+
+if (count($_GET)) {
+  $id       = $_GET['id'];
+  $nome     = $_SESSION['cadastropessoal'][$id]['nome'];
+  $idade    = $_SESSION['cadastropessoal'][$id]['idade'];
+  $telefone = $_SESSION['cadastropessoal'][$id]['telefone'];
+  $endereco = $_SESSION['cadastropessoal'][$id]['endereco'];
+  $cidade   = $_SESSION['cadastropessoal'][$id]['cidade'];
+  $estado   = $_SESSION['cadastropessoal'][$id]['estado'];
+}
 
 ?>
 
@@ -87,30 +106,30 @@ require_once("estados.php");
       <form style="text-align: left" action="salvar.php" method="post">
         <div class="form-group">
             <label for="nome">Nome</label>
-            <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome da pessoa" value=""/>
+            <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome da pessoa" value="<?php echo $nome; ?>"/>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-4">
               <label for="idade">Idade</label>
-              <input class="form-control" type="idade" name="idade" id="idade" placeholder="Idade da pessoa" value=""/>
+              <input class="form-control" type="idade" name="idade" id="idade" placeholder="Idade da pessoa" value="<?php echo $idade; ?>"/>
             </div>
 
             <div class="form-group col-md-8">
               <label for="telefone">Telefone</label>
-              <input class="form-control" type="text" name="telefone" id="telefone" placeholder="Telefone da pessoa" value=""/>
+              <input class="form-control" type="text" name="telefone" id="telefone" placeholder="Telefone da pessoa" value="<?php echo $telefone; ?>"/>
             </div>
         </div>
 
         <div class="form-group">
           <label for="endereco">Endereço</label>
-          <input class="form-control" type="text" name="endereco" id="endereco" placeholder="Endereço da pessoa" value=""/>
+          <input class="form-control" type="text" name="endereco" id="endereco" placeholder="Endereço da pessoa" value="<?php echo $endereco; ?>"/>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-8">
             <label for="cidade">Cidade</label>
-            <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Cidade da pessoa" value=""/>
+            <input class="form-control" type="text" name="cidade" id="cidade" placeholder="Cidade da pessoa" value="<?php echo $cidade; ?>"/>
           </div>
 
           <div class="form-group col-md-4">
