@@ -104,6 +104,7 @@ if (count($_GET)) {
   <div class="starter-template">
       
       <form style="text-align: left" action="salvar.php" method="post">
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
         <div class="form-group">
             <label for="nome">Nome</label>
             <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome da pessoa" value="<?php echo $nome; ?>"/>
