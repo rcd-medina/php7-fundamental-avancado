@@ -3,6 +3,8 @@
 
 session_start();
 
+require_once("estados.php");
+
 $pessoas = [];
 
 if (isset($_SESSION['cadastropessoal'])) {
@@ -106,6 +108,7 @@ if (isset($_SESSION['cadastropessoal'])) {
         <tbody>
           <?php
             foreach ($pessoas as $i => $p) {
+              $uf = $estados[$p['estado']];
               echo "<tr>";
               echo '<th scope="row">' . $i . '</th>';
               echo '<td>' . $p['nome'] . '</td>';
@@ -113,9 +116,9 @@ if (isset($_SESSION['cadastropessoal'])) {
               echo '<td>' . $p['telefone'] . '</td>';
               echo '<td>' . $p['endereco'] . '</td>';
               echo '<td>' . $p['cidade'] . '</td>';
-              echo '<td>' . $p['estado'] . '</td>';
+              echo '<td>' . $uf . '</td>';
               echo '<td>';
-              echo '<a class="btn btn-danger " href="#"> <i class="fa fa-trash-o fa-lg"></i> </a> ';
+              echo '<a class="btn btn-danger " href="apagar.php?id='. $i . '"> <i class="fa fa-trash-o fa-lg"></i> </a> ';
               echo '<a class="btn btn-warning " href="#"> <i class="fa fa-pencil fa-lg"></i> </a> ';
               echo '</td>';
               echo "</tr>";
