@@ -3,6 +3,11 @@
 
 session_start();
 
+$pessoas = [];
+
+if (isset($_SESSION['cadastropessoal'])) {
+  $pessoas = $_SESSION['cadastropessoal'];
+}
 ?>
 
 <!doctype html>
@@ -18,7 +23,8 @@ session_start();
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
 
     <style>
       .bd-placeholder-img {
@@ -83,9 +89,40 @@ session_start();
 <main role="main" class="container">
 
   <div class="starter-template">
-      <?php
-        var_dump($_SESSION['cadastropessoal']);
-      ?>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Idade</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Endereço</th>
+            <th scope="col">Cidade</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <?php
+            foreach ($pessoas as $i => $p) {
+              echo "<tr>";
+              echo '<th scope="row">' . $i . '</th>';
+              echo '<td>' . $p['nome'] . '</td>';
+              echo '<td>' . $p['idade'] . '</td>';
+              echo '<td>' . $p['telefone'] . '</td>';
+              echo '<td>' . $p['endereco'] . '</td>';
+              echo '<td>' . $p['cidade'] . '</td>';
+              echo '<td>' . $p['estado'] . '</td>';
+              echo '<td>';
+              echo '<a class="btn btn-danger " href="#"> <i class="fa fa-trash-o fa-lg"></i> </a> ';
+              echo '<a class="btn btn-warning " href="#"> <i class="fa fa-pencil fa-lg"></i> </a> ';
+              echo '</td>';
+              echo "</tr>";
+            }
+          ?>
+        </tbody>
+      </table>
       <!--
         <h1>Bootstrap starter template</h1>
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
