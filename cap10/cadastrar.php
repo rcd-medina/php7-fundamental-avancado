@@ -136,8 +136,17 @@ if (count($_GET)) {
             <label for="estado">Estado</label>
             <select class="form-control" name="estado" id="estado">
 <?php
+            $uf_sel = $estado[0];
+
+            if ($estado != '') {
+              $uf_sel = $estado;
+            }
             foreach ($estados as $i => $uf) {
-              echo "<option value=\"$i\">$uf</option>";
+              if ($i == $uf_sel) {
+                echo "<option value=\"$i\" selected> $uf </option>";
+              } else {
+                echo "<option value=\"$i\">$uf</option>";
+              }
             }
 ?>
             </select>
