@@ -1,0 +1,1 @@
+Arquivo de texte para a leitura e escrita em PHP
