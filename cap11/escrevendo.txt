@@ -1,4 +1,4 @@
 1 Texto a ser escrito.
-4 Nova linha escrita.
-
+2 Texto a ser escrito.
 3 Texto a ser escrito.
+4 Nova linha escrita.

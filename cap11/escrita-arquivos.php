@@ -12,7 +12,7 @@ if ($f) {
     fclose($f);
 }
 
-$f = fopen($nome, 'r+');
+$f = fopen($nome, 'a+');
 if ($f) {
     $linha = fgets($f);
     echo "<p>Primeira linha do arquivo: $linha </p>";
