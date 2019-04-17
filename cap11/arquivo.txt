@@ -1,1 +1,3 @@
-Arquivo de texte para a leitura e escrita em PHP
+<h1>Arquivo de teste para a leitura e escrita em PHP</h1>
+<h2>Segunda linha para teste de leitura em PHP</h2>
+<h3>Terceira linha para teste de leitura em PHP</h3>
