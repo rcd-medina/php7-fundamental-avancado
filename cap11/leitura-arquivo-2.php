@@ -18,7 +18,7 @@ if (file_exists($s)) {
             echo "Linha $linha: $conteudo";
             $linha++;
         }
-        //fclose($f);
+        fclose($f);
     }
 } else {
     echo "<p>Arquivo NÃO EXISTE $f.</p>";
