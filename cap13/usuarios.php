@@ -1,3 +1,23 @@
+
+<?php
+
+    $arquivoUsuario = 'usuarios.json';
+
+    if (count($_POST) > 0) {
+        $usuario  = $_POST;
+        $usuarios = [];
+
+        if (file_exists($arquivoUsuario)) {
+            $usuarios = json_decode(file_get_contents($arquivoUsuario), true);
+        }
+
+        $usuarios[] = $usuario;
+        file_put_contents($arquivoUsuario, json_encode($usuarios));
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
