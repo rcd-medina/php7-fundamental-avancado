@@ -36,7 +36,37 @@
 
     <main>
         <div class="container">
+            <div class="row" style="margin-top: 50px;">
+                <div class="col s8 offset-s2">
+                    <div class="card grey lighten-5">
+                        <div class="card-content">
+                            <span class="card-title">Cadastre um Novo Usuário</span>
+                        </div>
 
+                        <div class="card-action">
+                            <form class="container" method="post">
+                                <div class="row">
+                                    <div class="input-filed col s6">
+                                        <label for="nome">Nome</label>
+                                        <input class="validate" type="text" name="nome" id="nome" placeholder="Nome ou Apelido">
+                                    </div>
+
+                                    <div class="input-filed col s6">
+                                        <label for="nome">E-mail</label>
+                                        <input class="validate" type="email" name="email" id="email" placeholder="email@dominio">
+                                    </div>
+
+                                    <div class="col s12 right-align">
+                                        <button class="btn waves-effect waves-light" type="submit">Cadastrar
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
