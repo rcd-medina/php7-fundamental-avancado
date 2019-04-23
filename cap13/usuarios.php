@@ -3,7 +3,7 @@
 
     $arquivoUsuario = 'usuarios.json';
 
-    if (count($_POST) > 0) {
+    if (count($_POST)) {
         $usuario  = $_POST;
         $usuarios = [];
 
@@ -13,6 +13,11 @@
 
         $usuarios[] = $usuario;
         file_put_contents($arquivoUsuario, json_encode($usuarios));
+    }
+
+    $usuarios = array();
+    if (file_exists($arquivoUsuario)) {
+        $usuarios = json_decode(file_get_contents($arquivoUsuario), true);
     }
 
 ?>
@@ -61,6 +66,37 @@
                     <div class="card grey lighten-5">
                         <div class="card-content">
                             <span class="card-title">Cadastre um Novo Usuário</span>
+                            <br>
+
+                            <?php
+                                if (count($usuarios)) {
+                                    echo '<ul class="collection">';
+
+                                    foreach ($usuarios as $u) {
+                                        echo '<li class="collection-item-avatar">';
+                                        echo '<i class="material-icons circle">account_circle</i>';
+                                        echo '<span class="title">' . $u['nome'] . '</span>';
+                                        echo '<p>' . $u['email'] . '<br></p>';
+                                        echo '<a class="secondary-content" href="http://"><i class="material-icons">grade</i></a>';
+                                        echo '</li>';
+                                    }
+                                    echo '</ul>';
+                                } else {
+                            ?>
+
+                                    <div class="row">
+                                        <div class="col s10 offset-s1">
+                                            <div class="card blue">
+                                                <span class="white-text">
+                                                    <p>Você não possui um usuário cadastrado</p>
+                                                    <p>Cadastre um novo usuário para utilizar o Fotolog</p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                            <?php
+                                }
+                            ?>
                         </div>
 
                         <div class="card-action">
