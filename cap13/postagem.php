@@ -36,7 +36,37 @@
 
     <main>
         <div class="container">
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <div class="card grey lighten-5">
+                        <div class="card-content">
+                            <span class="card-title">Poste uma nova foto!</span>
+                            <br>
+                            <form class="container" method="POST" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <select name="usuario_id">
+                                            <option value="1">José</option>
+                                            <option value="2">Rose</option>
+                                        </select>
+                                        <label>Usuário</label>
+                                    </div>
 
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn cyan accent-4 col s2">
+                                            <span><i class="material-icons center">add_a_photo</i></span>
+                                            <input type="file" name="arquivo">
+                                        </div>
+                                        <div class="file-path-wrapper col s10">
+                                            <input class="file-path validade" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -71,5 +101,11 @@
     </footer>
     <script type ="text/javascript" src="./assets/js/jquery_v3.2.1.js"></script>
     <script src="./assets/js/materialize.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('select').material_select();
+        });
+    </script>
 </body>
 </html>
