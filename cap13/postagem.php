@@ -8,6 +8,23 @@ if (file_exists($arquivoUsuario)) {
     $usuarios = json_decode(file_get_contents($arquivoUsuario), true);
 }
 
+if (isset($_FILES['foto']) && count($_POST)) {
+    /*echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+
+    echo "<pre>";
+    print_r($_FILES);
+    echo "</pre>";*/
+    
+    $nome = $_FILES['foto']['name'];
+    $tam  = $_FILES['foto']['size'];
+    $tipo = $_FILES['foto']['type'];
+    $tmp  = $_FILES['foto']['tmp_name'];
+    $path = 'fotos/' . $nome;
+    move_uploaded_file($tmp, $path);
+}
+
 ?>
 
 
@@ -63,8 +80,8 @@ if (file_exists($arquivoUsuario)) {
                                         <?php
                                             if (count($usuarios)) {
                                                 echo '<option value="" disabled selected>Quem é você?</option>';
-                                                foreach ($usuarios as $u) {
-                                                    echo '<option value="' . $u['id'] . '">' . $u['nome'] . '</option>';
+                                                foreach ($usuarios as $id => $u) {
+                                                    echo '<option value="' . $id . '">' . $u['nome'] . '</option>';
                                                 }
                                             } else {
                                                 echo '<option value="" disabled selected>Cadastre um novo usuário</option>';
@@ -77,10 +94,10 @@ if (file_exists($arquivoUsuario)) {
                                     <div class="file-field input-field col s6">
                                         <div class="btn cyan accent-4 col s2">
                                             <span><i class="material-icons center">add_a_photo</i></span>
-                                            <input type="file" name="arquivo">
+                                            <input type="file" name="foto">
                                         </div>
                                         <div class="file-path-wrapper col s10">
-                                            <input class="file-path validade" type="text">
+                                            <input class="file-path validate" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +118,7 @@ if (file_exists($arquivoUsuario)) {
 
                                 <div class="row">
                                     <div class="col s12 right-align">
-                                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                        <button class="btn waves-effect waves-light" type="submit">Submit
                                             <i class="material-icons right">send</i>
                                         </button>
                                     </div>
