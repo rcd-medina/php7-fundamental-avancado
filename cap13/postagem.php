@@ -1,3 +1,17 @@
+
+<?php
+
+$arquivoUsuario = 'usuarios.json';
+
+$usuarios = array();
+if (file_exists($arquivoUsuario)) {
+    $usuarios = json_decode(file_get_contents($arquivoUsuario), true);
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -46,8 +60,16 @@
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <select name="usuario_id">
-                                            <option value="1">José</option>
-                                            <option value="2">Rose</option>
+                                        <?php
+                                            if (count($usuarios)) {
+                                                echo '<option value="" disabled selected>Quem é você?</option>';
+                                                foreach ($usuarios as $u) {
+                                                    echo '<option value="' . $u['id'] . '">' . $u['nome'] . '</option>';
+                                                }
+                                            } else {
+                                                echo '<option value="" disabled selected>Cadastre um novo usuário</option>';
+                                            }
+                                        ?>
                                         </select>
                                         <label>Usuário</label>
                                     </div>
