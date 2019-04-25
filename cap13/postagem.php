@@ -3,6 +3,7 @@
 
 $arquivoUsuario = 'usuarios.json';
 $arquivopostagens = 'postagens.json';
+$erro_extensao_invalida = false;
 
 $usuarios = array();
 if (file_exists($arquivoUsuario)) {

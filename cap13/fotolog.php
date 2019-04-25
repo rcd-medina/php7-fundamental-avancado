@@ -1,3 +1,20 @@
+
+
+<?php
+
+//$arquivoUsuario = 'usuarios.json';
+$arquivopostagens = 'postagens.json';
+//$erro_extensao_invalida = false;
+
+
+$postagens = [];
+if (file_exists($arquivopostagens)) {
+    $postagens = json_decode(file_get_contents($arquivopostagens), true);
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -35,8 +52,43 @@
     </nav>
 
     <main>
-        <div class="container">
+        <div class="container" style="margin-top: 50px">
 
+            <?php
+                if (count($postagens)) {
+                    foreach ($postagens as $i => $p) {
+                        if ($i % 2 == 0)
+                            echo '<div class="row">';
+                        echo '<div class="col s4 offset-s1">';
+                        echo    '<div class="card grey lighten-5 z-depth-3">';
+                        echo        '<div class="card-image">';
+                        echo            '<img src="' . $p['foto'] . '">';
+                        echo            '<span class="card-title">' . $p['titulo'] . '</span>';
+                        echo        '</div>';
+                        echo        '<div class="card-content">';
+                        echo            '<span class="card-title">' . $p['mensagem'] . '</span>';
+                        echo            '<br>';
+                        echo        '</div>';
+                        echo    '</div>';
+                        echo '</div>';
+                        
+                        if ($i % 2 == 1)
+                            echo '</div>';
+                    }
+                } else {
+            ?>
+                <div class="row">
+                    <div class="col s10 offset-s1">
+                        <div class="card-panel cyan lighten-5 z-depth-5">
+                            <span class="grey-text text-darken-3">
+                                Você ainda não possui nenhuma postagem!
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            <?php
+                }
+            ?>
         </div>
     </main>
 
