@@ -2,12 +2,14 @@
 <?php
 
 $arquivoUsuario = 'usuarios.json';
+$arquivopostagens = 'postagens.json';
 
 $usuarios = array();
 if (file_exists($arquivoUsuario)) {
     $usuarios = json_decode(file_get_contents($arquivoUsuario), true);
 }
 
+$postagens = [];
 if (isset($_FILES['foto']) && count($_POST)) {
     /*echo "<pre>";
     print_r($_POST);
@@ -16,13 +18,33 @@ if (isset($_FILES['foto']) && count($_POST)) {
     echo "<pre>";
     print_r($_FILES);
     echo "</pre>";*/
-    
+
     $nome = $_FILES['foto']['name'];
     $tam  = $_FILES['foto']['size'];
     $tipo = $_FILES['foto']['type'];
     $tmp  = $_FILES['foto']['tmp_name'];
     $path = 'fotos/' . $nome;
-    move_uploaded_file($tmp, $path);
+
+    $extensoes = ['jpeg', 'jpg', 'png'];
+    $extensao  = strtolower(end(explode('.', $nome)));
+
+    $erro_extensao_invalida = (! in_array($extensao, $extensoes));
+
+    if (! $erro_extensao_invalida && $tam > 0) {
+        move_uploaded_file($tmp, $path);
+
+        if (isset($_POST['usuario_id']) && isset($_POST['usuario_id']) < count($usuarios)) {
+            $usuario = $usuarios[$_POST['usuario_id']]['nome'];
+        }
+
+        $titulo      = $_POST['titulo'];
+        $mensagem    = $_POST['mensagem'];
+        $foto        = $path;
+        $novopost    = ['usuario_id' => $usuario, 'titulo' => $titulo, 'mensagem' => $mensagem, 'foto' => $foto];
+        $postagens[] = $novopost;
+
+        file_put_contents($arquivopostagens, json_encode($postagens));
+    }
 }
 
 ?>
