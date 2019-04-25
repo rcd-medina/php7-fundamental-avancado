@@ -26,15 +26,18 @@ if (isset($_FILES['foto']) && count($_POST)) {
     $path = 'fotos/' . $nome;
 
     $extensoes = ['jpeg', 'jpg', 'png'];
-    $extensao  = strtolower(end(explode('.', $nome)));
+    $ext = explode('.', $nome);
+    $extensao  = strtolower(end($ext));
 
     $erro_extensao_invalida = (! in_array($extensao, $extensoes));
 
     if (! $erro_extensao_invalida && $tam > 0) {
         move_uploaded_file($tmp, $path);
 
-        if (isset($_POST['usuario_id']) && isset($_POST['usuario_id']) < count($usuarios)) {
+        if (isset($_POST['usuario_id']) && ($_POST['usuario_id'] < count($usuarios)) ) {
             $usuario = $usuarios[$_POST['usuario_id']]['nome'];
+        } else {
+            $usuario = 'Usuário desconhecido.';
         }
 
         $titulo      = $_POST['titulo'];
@@ -89,7 +92,7 @@ if (isset($_FILES['foto']) && count($_POST)) {
 
     <main>
         <div class="container">
-            <div class="row">
+            <div class="row" style="margin-top: 50px">
                 <div class="col s10 offset-s1">
                     <div class="card grey lighten-5">
                         <div class="card-content">
@@ -149,6 +152,23 @@ if (isset($_FILES['foto']) && count($_POST)) {
                         </div>
                     </div>
                 </div>
+
+                <?php
+                    if ($erro_extensao_invalida) {
+                ?>
+                    <div class="row">
+                        <div class="col s10 offset-s1">
+                            <div class="card-panel red lighten-4">
+                                <span class="grey-text text-darken-3">
+                                    Erro: O arquivo que você enviou não é uma imagem válida. <br>
+                                    Envie um arquivo que contenha a extensão .JPEG, JPG, .PNG
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                    }
+                ?>
             </div>
         </div>
     </main>
