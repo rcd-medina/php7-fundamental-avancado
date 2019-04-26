@@ -81,3 +81,42 @@ $objPessoaF->setNome('Amanda Souza');
 $objPessoaF->setEndereco('Rua das Termópilas 520');
 */
 var_dump($objPessoaF);
+
+
+// ====================================================================================================
+// Definição da classe PessoaJuridica
+// ====================================================================================================
+class PessoaJuridica extends Pessoa
+{
+    private $cnpj;
+
+    public function __construct($nome = '', $endereco = '', $cnpj) {
+        parent::__construct($nome, $endereco);
+        $this->cnpj = $cnpj;
+    }
+
+    public function setCNPJ($cnpj)
+    {
+        $this->cnpj = $cnpj;
+    }
+
+    public function getCNPJ()
+    {
+        return $this->cnpj;
+    }
+
+    public function imprimirDados()
+    {
+        echo "<br>";
+        echo "<p>" . $this->getNome() . "</p>";
+        echo "<p>" . $this->getEndereco() . "</p>";
+        echo "<p>" . $this->cnpj . "</p>";
+        echo "<br>";
+    }
+}
+
+$pessoaJ = new PessoaJuridica('Comercio Eletrônico LTDA', 'Rua Santa E., 275', '12.044.500/0001-54');
+
+echo "<br><br>";
+var_dump($pessoaJ);
+
