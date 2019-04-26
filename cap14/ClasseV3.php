@@ -26,6 +26,7 @@ class ClasseExemplo
     public function __destruct()
     {
         echo "<p>Destruíndo o objeto.</p>";
+        $this->imprimirAtributos();
     }
 
     public function setAtributo($valor)
@@ -41,11 +42,25 @@ class ClasseExemplo
     public function imprimirAtributos()
     {
         echo "<p>" . $this->atributoPrivado . "</p>";
-        echo "<p>" . $this->atributoPublico . "</p>";
+        // echo "<p>" . $this->atributoPublico . "</p>";
     }
 }
 
 $obj = new ClasseExemplo();
-$obj->imprimirAtributos();
+$obj->imprimirAtributos("Obj fora da função.");
+
+
+// ====================================================================================================
+// O objeto $objeto tem seu tempo de vida delimitado pelas abre chave ({) e fechar (}) da função
+// criarObjetos, enquanto que o objeto $obj tem seu tempo de vida delimitado à tag fecha php (? >)
+// que encerra o arquivo de código do PHP.
+// ====================================================================================================
+function criarObjetos()
+{
+    $objeto = new ClasseExemplo();
+    $objeto->setAtributo("Obj dentro da função.");
+}
+
+criarObjetos();
 
 
