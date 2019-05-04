@@ -1,5 +1,6 @@
 <?php
 
+require_once("Departamento.php");
 
 class Produto
 {
@@ -47,7 +48,9 @@ class Produto
 
     public function setDepartamento($departamento)
     {
-        $this->departamento = $departamento;
+        if ($departamento instanceof Departamento) {
+            $this->departamento = $departamento;
+        }
     }
 
     public function getDepartamento()
