@@ -10,7 +10,7 @@ class Produto
     private $departamento;
 
     public function __construct($idProduto, $nome, $preco, $departamento) {
-        $this->idDepartamento = $departamento;
+        $this->idProduto = $idProduto;
         $this->nome = $nome;
         $this->preco = $preco;
         $this->departamento = $departamento;
