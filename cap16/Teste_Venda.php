@@ -39,4 +39,35 @@ foreach ($produtos as $p) {
 }
 echo "</table>";
 
+$vendedorPedro = new Vendedor(110, "Pedro Souza", "Av. Tito 330", "11 4000-0004", 3580.00);
+$vendedorMaria = new Vendedor(150, "Maria Ferreira", "Rua Vergueiro 800", "11 5000-5050", 3780.00);
+
+$clienteJoao = new Cliente(15, "Joao Barbosa", "Rua Acacias 124", "11 2020-1010", 150);
+$clienteBarbara = new Cliente(15, "Barbara Oliveira", "Rua Europa 260", "11 7070-8080", 180);
+
+
+$venda1 = new Venda(1000, 0, $clienteJoao, $vendedorPedro);
+$venda1->addProduto(new VendaProduto($prodMouse, 1, 0));
+$venda1->addProduto(new VendaProduto($prodPastel, 2, 0, 0.10));
+$venda1->addProduto(new VendaProduto($prodFeijão, 5, 0, 0.20));
+
+$venda2 = new Venda(2000, 0, $clienteBarbara, $vendedorMaria);
+$venda2->addProduto(new VendaProduto($prodInfo, 1, 0));
+$venda2->addProduto(new VendaProduto($prodNote, 1, 0, 0.50));
+$venda2->addProduto(new VendaProduto($prodFeijão, 5, 0, 0.20));
+
+$venda3 = new Venda(3000, 0, $clienteJoao, $vendedorPedro);
+$venda3->addProduto(new VendaProduto($prodNote, 1, 0));
+$venda3->addProduto(new VendaProduto($prodPastel, 5, 0, 0.10));
+$venda3->addProduto(new VendaProduto($prodFeijão, 3, 0, 0.20));
+
+$vendas = [$venda1, $venda2, $venda3];
+
+function ImprimirVendas($vendas)
+{
+    # code...
+}
+
+
+ImprimirVendas();
 
