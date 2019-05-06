@@ -60,7 +60,7 @@ class Venda
 
     public function addProduto($vendaProduto)
     {
-        if ($vendaProduto instanceof Produto) {
+        if ($vendaProduto instanceof VendaProduto) {
             $this->produtos[] = $vendaProduto;
         }
     }
