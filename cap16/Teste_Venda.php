@@ -47,17 +47,17 @@ $clienteBarbara = new Cliente(15, "Barbara Oliveira", "Rua Europa 260", "11 7070
 
 
 $venda1 = new Venda(1000, 0, $clienteJoao, $vendedorPedro);
-$venda1->addProduto(new VendaProduto($prodMouse, 1, 0));
+$venda1->addProduto(new VendaProduto($prodMouse, 1, 0.0));
 $venda1->addProduto(new VendaProduto($prodPastel, 2, 0, 0.10));
 $venda1->addProduto(new VendaProduto($prodFeijão, 5, 0, 0.20));
 
 $venda2 = new Venda(2000, 0, $clienteBarbara, $vendedorMaria);
-$venda2->addProduto(new VendaProduto($prodInfo, 1, 0));
+$venda2->addProduto(new VendaProduto($prodInfo, 1, 0.0));
 $venda2->addProduto(new VendaProduto($prodNote, 1, 0, 0.50));
 $venda2->addProduto(new VendaProduto($prodFeijão, 5, 0, 0.20));
 
 $venda3 = new Venda(3000, 0, $clienteJoao, $vendedorPedro);
-$venda3->addProduto(new VendaProduto($prodNote, 1, 0));
+$venda3->addProduto(new VendaProduto($prodNote, 1, 0.0));
 $venda3->addProduto(new VendaProduto($prodPastel, 5, 0, 0.10));
 $venda3->addProduto(new VendaProduto($prodFeijão, 3, 0, 0.20));
 
@@ -65,9 +65,36 @@ $vendas = [$venda1, $venda2, $venda3];
 
 function ImprimirVendas($vendas)
 {
-    # code...
+    echo "<br><br>";
+    echo "<h3>Vendas</h3>";
+
+    foreach ($vendas as $v) {
+        echo "<p>ID da Venda: " . $v->getIdVenda() . "</p>";
+        echo "<p>Nome Vendedor: " . $v->getVendedor()->getNome() . "</p>";
+        echo "<p>Nome Cliente: " . $v->getCliente()->getNome() . "</p>";
+
+        echo "<table>";
+        echo "<tr> <td>ID</td> <td>Nome</td> <td>Departamento</td> <td>Qantidade</td> <td>Desconto</td> <td>Total</td> </tr>";
+
+        foreach ($v->getProdutos() as $vendaProduto) {
+            echo "<tr>";
+            echo "<td>" . $vendaProduto->getProduto()->getIdProduto() . "</td>";
+            echo "<td>" . $vendaProduto->getProduto()->getNome() . "</td>";
+            echo "<td>" . $vendaProduto->getProduto()->getDepartamento()->getNome() . "</td>";
+            echo "<td>" . $vendaProduto->getQuantidade() . "</td>";
+            echo "<td>" . $vendaProduto->getDesconto() . "</td>";
+
+            $totalProduto = ($vendaProduto->getProduto()->getPreco() * $vendaProduto->getQuantidade()) *
+                            (1 - $vendaProduto->getDesconto());
+
+            echo "<td>R$: " . $totalProduto . "</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+        echo "<hr><br>";
+    }
 }
 
 
-ImprimirVendas();
+ImprimirVendas($vendas);
 
