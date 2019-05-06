@@ -26,7 +26,7 @@ class Venda
     {
         $this->idVenda = $idVenda;
     }
-    public function get()
+    public function getIdVenda()
     {
         return $this->idVenda;
     }
