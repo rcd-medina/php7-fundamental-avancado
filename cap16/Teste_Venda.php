@@ -50,16 +50,19 @@ $venda1 = new Venda(1000, 0, $clienteJoao, $vendedorPedro);
 $venda1->addProduto(new VendaProduto($prodMouse, 1, 0.0));
 $venda1->addProduto(new VendaProduto($prodPastel, 2, 0, 0.10));
 $venda1->addProduto(new VendaProduto($prodFeijão, 5, 0, 0.20));
+$venda1->calculaTotal();
 
 $venda2 = new Venda(2000, 0, $clienteBarbara, $vendedorMaria);
 $venda2->addProduto(new VendaProduto($prodInfo, 1, 0.0));
 $venda2->addProduto(new VendaProduto($prodNote, 1, 0, 0.50));
 $venda2->addProduto(new VendaProduto($prodFeijão, 5, 0, 0.20));
+$venda2->calculaTotal();
 
 $venda3 = new Venda(3000, 0, $clienteJoao, $vendedorPedro);
 $venda3->addProduto(new VendaProduto($prodNote, 1, 0.0));
 $venda3->addProduto(new VendaProduto($prodPastel, 5, 0, 0.10));
 $venda3->addProduto(new VendaProduto($prodFeijão, 3, 0, 0.20));
+$venda3->calculaTotal();
 
 $vendas = [$venda1, $venda2, $venda3];
 
@@ -91,6 +94,7 @@ function ImprimirVendas($vendas)
             echo "</tr>";
         }
         echo "</table>";
+        echo "<h3>Total da Venda: " . $v->getTotal() . "</h3>";
         echo "<hr><br>";
     }
 }
