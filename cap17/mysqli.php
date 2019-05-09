@@ -36,7 +36,14 @@ if (! $mysqli->connect_errno) {
     // ================================================================================================
     // Cria se uma instrução INSERT SQL a ser executada no banco de dados.
     // ================================================================================================
-    $sql = "INSERT INTO aluno (nome, idade, cidade) VALUES ('Rodrigo', 46, 'Barueri')";
+    //
+    // $sql = "INSERT INTO aluno (nome, idade, cidade) VALUES ('Rodrigo', 46, 'Barueri')";
+    //
+
+    // ================================================================================================
+    // Cria se uma instrução UPDATE SQL a ser executada no banco de dados.
+    // ================================================================================================
+    $sql = "UPDATE aluno SET idade = idade + 1 WHERE idaluno = 7";
 
     // ================================================================================================
     // Após a criação da sentença SQL, a executamos efetivamente através do método query() do objeto
@@ -46,8 +53,13 @@ if (! $mysqli->connect_errno) {
     // Obs.: Caso sejam passadas sentenças SQL do tipo SELECT, SHOW, DESCRIBE ou EXPLAIN, o método irá
     // retornar um objeto do tipo mysqli_result com os dados retornados pela sentença.
     // ================================================================================================
+    //
+    // if ($mysqli->query($sql)) {
+    //    echo "<p>Registro inserido com sucesso!</p>";
+    // }
+
     if ($mysqli->query($sql)) {
-        echo "<p>Registro inserido com sucesso!</p>";
+        echo "<p>Registro alterado com sucesso!</p>";
     }
 } else {
     echo "Erro na conexão!";
