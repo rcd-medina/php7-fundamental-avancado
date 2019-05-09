@@ -108,7 +108,7 @@ if (! $mysqli->connect_errno) {
         //
         // O laço while(), aqui apresentando, funcionará da seguinte maneira: O método fetch_row() do
         // do objeto $res (mysqli_result) retornará cada registro, em forma de um array indexado, e
-        // esse array será armazenado na variável $row (linha). Quando o método fetch_row() não chegar
+        // esse array será armazenado na variável $row (linha). Quando o método fetch_row() chegar
         // ao fim, ou seja, ler todos os registros, ele retornará o valor null para a variável $row,
         // nesse momento o laço será finalizado.
         //
