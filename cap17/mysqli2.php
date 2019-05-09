@@ -65,7 +65,9 @@ if (! $mysqli->connect_errno) {
     // ================================================================================================
     // Cria se uma instrução UPDATE SQL a ser executada no banco de dados.
     // ================================================================================================
-    $sql = "UPDATE aluno SET idade = idade + 1 WHERE idaluno = 7";
+    //
+    // $sql = "UPDATE aluno SET idade = idade + 1 WHERE idaluno = 7";
+    //
 
     // ================================================================================================
     // Após a criação da sentença SQL, a executamos efetivamente através do método query() do objeto
@@ -79,10 +81,54 @@ if (! $mysqli->connect_errno) {
     // if ($mysqli->query($sql)) {
     //    echo "<p>Registro inserido com sucesso!</p>";
     // }
+    //
 
-    if ($mysqli->query($sql)) {
-        echo "<p>Registro alterado com sucesso!</p>";
+    //
+    // if ($mysqli->query($sql)) {
+    //    echo "<p>Registro alterado com sucesso!</p>";
+    // }
+    //
+
+    // ================================================================================================
+    // LEMBRANDO:
+    // Quando executamos uma sentença SQL que retorna linhas de dados (registros), o método query irá
+    // retornar um objeto do tipo mysqli_result contendo os registros.
+    // Para recuperar os registros precisamos chamar os métodos apropriados deste objeto.
+    // ================================================================================================
+    $sql = "SELECT * FROM aluno";
+    $res = $mysqli->query($sql);
+
+    if (isset($sql)) {
+        /*echo "<pre>";
+        print_r($res);
+        echo "</pre>";*/
+        // ============================================================================================
+        // Após o resultado ser armazenado na variável $res, será utilizado o método fetch_row() para
+        // recuperar cada registro encontrado no banco de dados.
+        //
+        // O laço while(), aqui apresentando, funcionará da seguinte maneira: O método fetch_row() do
+        // do objeto $res (mysqli_result) retornará cada registro, em forma de um array indexado, e
+        // esse array será armazenado na variável $row (linha). Quando o método fetch_row() não chegar
+        // ao fim, ou seja, ler todos os registros, ele retornará o valor null para a variável $row,
+        // nesse momento o laço será finalizado.
+        //
+        // Já que cada registro (linha) é retornado como um array, basta acessar o valor de cada
+        // coluna através de um índice.
+        //
+        // Ex.: A coluna idaluno, a primeira na tabela, está na posição 0, logo, $row[0] acessa a
+        // coluna. A coluna nome, segunda na tabela, está na posição 1, $row[1], e assim por diante.
+        // ============================================================================================
+        echoTableHead();
+        while ($row = $res->fetch_row()) {
+            echo "<tr>";
+            echo "<td>" . $row[0] . "</td>";
+            echo "<td>" . $row[1] . "</td>";
+            echo "<td>" . $row[2] . "</td>";
+            echo "<td>" . $row[3] . "</td>";
+        }
+        echoTableFoot();
     }
+
 } else {
     echo "Erro na conexão!";
     echo "<br><br>Valor de connect_errno: ";
