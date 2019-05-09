@@ -103,28 +103,28 @@ if (! $mysqli->connect_errno) {
         print_r($res);
         echo "</pre>";*/
         // ============================================================================================
-        // Após o resultado ser armazenado na variável $res, será utilizado o método fetch_row() para
+        // Após o resultado ser armazenado na variável $res, será utilizado o método fetch_assoc() para
         // recuperar cada registro encontrado no banco de dados.
         //
-        // O laço while(), aqui apresentando, funcionará da seguinte maneira: O método fetch_row() do
-        // do objeto $res (mysqli_result) retornará cada registro, em forma de um array indexado, e
-        // esse array será armazenado na variável $row (linha). Quando o método fetch_row() não chegar
+        // O laço while(), aqui apresentando, funcionará da seguinte maneira: O método fetch_assoc()
+        // do objeto $res (mysqli_result) retornará cada registro, em forma de um array associativo, e
+        // esse array será armazenado na variável $row (linha). Quando o método fetch_assoc() chegar
         // ao fim, ou seja, ler todos os registros, ele retornará o valor null para a variável $row,
         // nesse momento o laço será finalizado.
         //
         // Já que cada registro (linha) é retornado como um array, basta acessar o valor de cada
-        // coluna através de um índice.
+        // coluna através do nome da caluna, já que o método fetch_assoc() retorna um array associativo
+        // sendo que cada chave é o nome da coluna da tabela, na mesma ordem, e o valor é o dados.
         //
-        // Ex.: A coluna idaluno, a primeira na tabela, está na posição 0, logo, $row[0] acessa a
-        // coluna. A coluna nome, segunda na tabela, está na posição 1, $row[1], e assim por diante.
+        // Ex.: $row['idaluno'], $row['nome'], e assim por diante.
         // ============================================================================================
         echoTableHead();
-        while ($row = $res->fetch_row()) {
+        while ($row = $res->fetch_assoc()) {
             echo "<tr>";
-            echo "<td>" . $row[0] . "</td>";
-            echo "<td>" . $row[1] . "</td>";
-            echo "<td>" . $row[2] . "</td>";
-            echo "<td>" . $row[3] . "</td>";
+            echo "<td>" . $row['idaluno'] . "</td>";
+            echo "<td>" . $row['nome'] . "</td>";
+            echo "<td>" . $row['idade'] . "</td>";
+            echo "<td>" . $row['cidade'] . "</td>";
         }
         echoTableFoot();
     }
