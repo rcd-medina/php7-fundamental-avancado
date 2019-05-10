@@ -99,9 +99,12 @@ if (! $mysqli->connect_errno) {
     $res = $mysqli->query($sql);
 
     if (isset($sql)) {
-        /*echo "<pre>";
-        print_r($res);
-        echo "</pre>";*/
+        // ============================================================================================
+        // O objeto $res (mysqli_result) possui uma propriedade chamada num_rows que armazena a, em 
+        // forma de inteiro, a quantidade de resgitros recuperados.
+        // ============================================================================================
+        echo "<p>Foram encontrados " . $res->num_rows . " registros.";
+
         // ============================================================================================
         // Após o resultado ser armazenado na variável $res, será utilizado o método fetch_assoc() para
         // recuperar cada registro encontrado no banco de dados.
