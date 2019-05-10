@@ -90,6 +90,12 @@ if (! $mysqli->connect_errno) {
         $idade = 54;
         $cidade = "São Paulo";
         $stmt->execute();
+
+        // ========================================================================================
+        // Após a utlização do $stmt, sempre devemos executar o método close do objeto para que
+        // o mesmo libere a memória utilizada e não fique "preso" nela.
+        // ========================================================================================
+        $stmt->close();
     }
 
 } else {
