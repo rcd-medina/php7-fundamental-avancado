@@ -60,36 +60,34 @@ if (! $mysqli->connect_errno) {
     // Em seguida prepara a sentença SQL para ser executada, lembrando que todos os pontos de ?
     // interrogação serão trocados quando o método bind_param do objeto $stmt for chamados.
     // ============================================================================================
-    $sql = "INSERT INTO aluno (nome, idade, cidade) VALUES (?, ?, ?)";
+    $sql = "DELETE FROM aluno WHERE idaluno = ?";
     $stmt = $mysqli->prepare($sql);
     
     // ============================================================================================
     // Primeiro verifica se o objeto $stmt não é nullo.
     // Em seguida utiliza se o método bind_param() para vincular os valores com o tipo de dado
     // a ser utilizado para cada campo ? (interrogação) na sentença SQL, neste exemplo seria isso:
-    // string (s) para nome, integer (i) para idade e string (s) para cidade, logo, sis.
+    // string (s) para nome, integer (i) para idade e string (s) para cidade.
     // ============================================================================================
     if (isset($stmt)) {
-        $stmt->bind_param('sis', $nome, $idade, $cidade);
-
+        
         // ========================================================================================
         // Definição dos valores das variáveis.
         // Por fim executa a sentença SQL no banco de dados com uma chamada ao método execute().
         // ========================================================================================
-        $nome = "Fabio Machado";
-        $idade = 22;
-        $cidade = "Indaiatuba";
+        $stmt->bind_param('i', $idaluno);
+        $idaluno = 9;
         $stmt->execute();
 
-        $nome = "Ana Conceição";
-        $idade = 21;
-        $cidade = "Ferraz de Vasconcellos";
+        $stmt->bind_param('i', $idaluno);
+        $idaluno = 10;
         $stmt->execute();
 
-        $nome = "Fátima Bernardes";
-        $idade = 54;
-        $cidade = "São Paulo";
-        $stmt->execute();
+        // ========================================================================================
+        // Após a utlização do $stmt, sempre devemos executar o método close do objeto para que
+        // o mesmo libere a memória utilizada e não fique "preso" nela.
+        // ========================================================================================
+        $stmt->close();
     }
 
 } else {
