@@ -60,35 +60,36 @@ if (! $mysqli->connect_errno) {
     // Em seguida prepara a sentença SQL para ser executada, lembrando que todos os pontos de ?
     // interrogação serão trocados quando o método bind_param do objeto $stmt for chamados.
     // ============================================================================================
-    $sql = "DELETE FROM aluno WHERE idaluno = ?";
+    $sql = "SELECT nome, idade, cidade FROM aluno WHERE cidade LIKE ?";
     $stmt = $mysqli->prepare($sql);
-    
-    // ============================================================================================
-    // Primeiro verifica se o objeto $stmt não é nullo.
-    // Em seguida utiliza se o método bind_param() para vincular os valores com o tipo de dado
-    // a ser utilizado para cada campo ? (interrogação) na sentença SQL, neste exemplo seria isso:
-    // string (s) para nome, integer (i) para idade e string (s) para cidade.
-    // ============================================================================================
+
     if (isset($stmt)) {
-        
-        // ========================================================================================
-        // Definição dos valores das variáveis.
-        // Por fim executa a sentença SQL no banco de dados com uma chamada ao método execute().
-        // ========================================================================================
-        $stmt->bind_param('i', $idaluno);
-        $idaluno = 9;
-        $stmt->execute();
-
-        $stmt->bind_param('i', $idaluno);
-        $idaluno = 10;
+        $stmt->bind_param('s', $cidade);
+        $cidade = '%Barueri%';
         $stmt->execute();
 
         // ========================================================================================
-        // Após a utlização do $stmt, sempre devemos executar o método close do objeto para que
-        // o mesmo libere a memória utilizada e não fique "preso" nela.
+        // Após a sentença SQL de seleção ser executada, utiliza se o método bind_result() para
+        // armazenar cada dado das colunas, nas variáveis $nome, $idade e $cidade.
+        // Como a sentença busca apenas três colunas, informamos três variáveis onde os dados vão
+        // ser armazenados.
         // ========================================================================================
+        $stmt->bind_result($nome, $idade, $cidade);
+
+        // ========================================================================================
+        // Pesquisar sobre o método store_result() do objeto $stmt
+        // ========================================================================================
+        $res = $stmt->store_result();
+
+        if ($stmt->num_rows) {
+            while ($stmt->fetch()) {
+                echo "<p>Nome: $nome  |  Idade: $idade  |  Cidade: $cidade";
+            }
+        }
         $stmt->close();
     }
+    
+    
 
 } else {
     echo "Erro na conexão!";
