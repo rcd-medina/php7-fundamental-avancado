@@ -1,4 +1,4 @@
-<?php
+<?php /*
 
 require_once("Produto.php");
 
@@ -71,13 +71,8 @@ class Venda
 
     public function calculaTotal()
     {
-        $total = 0;
-        foreach ($this->produtos as $p) {
-            $total += $p->getProduto()->getPreco() * $p->getQuantidade() * (1 - $p->getDesconto());
-        }
-
-        $this->total = $total;
+        # code...
     }
-}
+}*/
 
 
