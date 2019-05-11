@@ -1,5 +1,4 @@
 <?php
-/*
 
 require_once("Cliente.php");
 require_once("Vendedor.php");
@@ -12,20 +11,16 @@ $depAlimentos   = new Departamento(1, "Alimetos");
 $depRoupas      = new Departamento(2, "Roupas");
 $depEletronicos = new Departamento(3, "Eletrônicos");
 $depRevistas    = new Departamento(4, "Revista");
-
 $prodNote = new Produto(1, "Notebook Asus", 5999.99, $depEletronicos);
 $prodInfo = new Produto(2, "Info Maio 2019", 15.99, $depRevistas);
 $prodPastel = new Produto(3, "Pastel de Carne Congelado", 4.99, $depAlimentos);
 $prodFeijão = new Produto(4, "Feijão Carioca", 8.99, $depAlimentos);
 $prodMouse  = new Produto(5, "Mouse Óptico", 12.99, $depEletronicos);
-
 $produtos = [$prodNote, $prodInfo, $prodPastel, $prodFeijão, $prodMouse];
 
-echo "<pre>";
+/*echo "<pre>";
 print_r($produtos);
-echo "</pre> <br><br><br>";
-
-
+echo "</pre> <br><br><br>";*/
 
 echo "<table>";
 echo "<tr> <td>ID</td> <td>Nome</td> <td>Preço</td> <td>Departamento</td> </tr>";
@@ -39,53 +34,62 @@ foreach ($produtos as $p) {
 }
 echo "</table>";
 
-$vendedorPedro = new Vendedor(20, "Pedro de Souza", "Rua das Acassias 502", 3600.00);
-$vendedorBento = new Vendedor(35, "Bento Rodrigues", "Rua Vergueiro 110", 3450.00);
+$vendedorPedro = new Vendedor(110, "Pedro Souza", "Av. Tito 330", "11 4000-0004", 3580.00);
+$vendedorMaria = new Vendedor(150, "Maria Ferreira", "Rua Vergueiro 800", "11 5000-5050", 3780.00);
 
-$clienteMaria = new Cliente(254, "Maria Aparecida", "Rua America 81", "11 5241-1200", 200);
-$clienteJoao  = new Cliente(135, "João da Silva", "Rua Turiassu", "11 1414-1000", 150);
+$clienteJoao = new Cliente(15, "Joao Barbosa", "Rua Acacias 124", "11 2020-1010", 150);
+$clienteBarbara = new Cliente(15, "Barbara Oliveira", "Rua Europa 260", "11 7070-8080", 180);
 
-$venda01 = new Venda(1, 0, $clienteJoao, $vendedorBento);
-$venda01->addProduto(new VendaProduto(5, $prodMouse, 1, 0.0));
-$venda01->addProduto(new VendaProduto(2, $prodInfo, 1, 0.10));
-$venda01->addProduto(new VendaProduto(4, $prodFeijão, 2, 0.0));
+$venda1 = new Venda(1000, 0, $clienteJoao, $vendedorPedro);
+$venda1->addProduto(new VendaProduto($prodMouse, 1, 0.0));
+$venda1->addProduto(new VendaProduto($prodPastel, 2, 0, 0.10));
+$venda1->addProduto(new VendaProduto($prodFeijão, 5, 0, 0.20));
+$venda1->calculaTotal();
 
-$venda02 = new Venda(2, 0, $clienteMaria, $vendedorPedro);
-$venda02->addProduto(new VendaProduto(3, $prodPastel, 3, 0.30));
-$venda02->addProduto(new VendaProduto(1, $prodNote, 1, 0.15));
-$venda02->addProduto(new VendaProduto(4, $prodFeijão, 2, 0.0));
+$venda2 = new Venda(2000, 0, $clienteBarbara, $vendedorMaria);
+$venda2->addProduto(new VendaProduto($prodInfo, 1, 0.0));
+$venda2->addProduto(new VendaProduto($prodNote, 1, 0, 0.50));
+$venda2->addProduto(new VendaProduto($prodFeijão, 5, 0, 0.20));
+$venda2->calculaTotal();
 
-$venda03 = new Venda(3, 0, $clienteJoao, $vendedorPedro);
-$venda03->addProduto(new VendaProduto(1, $prodNote, 1, 0.10));
-$venda03->addProduto(new VendaProduto(5, $prodMouse, 1, 0.05));
-$venda03->addProduto(new VendaProduto(3, $prodPastel, 2, 0.0));
+$venda3 = new Venda(3000, 0, $clienteJoao, $vendedorPedro);
+$venda3->addProduto(new VendaProduto($prodNote, 1, 0.0));
+$venda3->addProduto(new VendaProduto($prodPastel, 5, 0, 0.10));
+$venda3->addProduto(new VendaProduto($prodFeijão, 3, 0, 0.20));
+$venda3->calculaTotal();
 
-$vendas = [$venda01, $venda02, $venda03];
+$vendas = [$venda1, $venda2, $venda3];
 
 function ImprimirVendas($vendas)
 {
-    echo "<br><br><br>";
-
+    echo "<br><br>";
+    echo "<h3>Vendas</h3>";
+    
     foreach ($vendas as $v) {
-        echo "<p>ID da Venda:" . $v->getIdVenda() . "</p>";
-        echo "<p>Vendedor: " . $v->getCliente()->getNome() . "</p>";
-        echo "<p>Cliente: " . $v->getVendedor()->getNome() . "</p>";
-            
+        echo "<p>ID da Venda: " . $v->getIdVenda() . "</p>";
+        echo "<p>Nome Vendedor: " . $v->getVendedor()->getNome() . "</p>";
+        echo "<p>Nome Cliente: " . $v->getCliente()->getNome() . "</p>";
         echo "<table>";
-        echo "<tr> <td>ID</td> <td>Nome</td> <td>Departamento</td> <td>Quantidade</td> <td>Desconto</td> <td>Total</td> </tr>";
-        foreach ($v->getProdutos() as $p) {
+        echo "<tr> <td>ID</td> <td>Nome</td> <td>Departamento</td> <td>Qantidade</td> <td>Desconto</td> <td>Total</td> </tr>";
+        
+        foreach ($v->getProdutos() as $vendaProduto) {
             echo "<tr>";
-            echo "<td>" . $p->getProduto()->getIdProduto() . "</td>";
-            echo "<td>" . $p->getProduto()->getNome() . "</td>";
-            echo "<td>" . $p->getProduto()->getDepartamento() . "</td>";
-            echo "<td>" . $p->getQuantidade() . "</td>";
-            echo "<td>" . $p->getDesconto() . "</td>";
-            echo "<td>" . "0" . "</td>";
+            echo "<td>" . $vendaProduto->getProduto()->getIdProduto() . "</td>";
+            echo "<td>" . $vendaProduto->getProduto()->getNome() . "</td>";
+            echo "<td>" . $vendaProduto->getProduto()->getDepartamento()->getNome() . "</td>";
+            echo "<td>" . $vendaProduto->getQuantidade() . "</td>";
+            echo "<td>" . $vendaProduto->getDesconto() . "</td>";
+            $totalProduto = ($vendaProduto->getProduto()->getPreco() * $vendaProduto->getQuantidade()) *
+                            (1 - $vendaProduto->getDesconto());
+            echo "<td>R$: " . $totalProduto . "</td>";
+            echo "</tr>";
         }
-        echo "<hr>";
+        
+        echo "</table>";
+        echo "<h3>Total da Venda: " . $v->getTotal() . "</h3>";
+        echo "<hr><br>";
     }
 }
 
 ImprimirVendas($vendas);
 
-*/
