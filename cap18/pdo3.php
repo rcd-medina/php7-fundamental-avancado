@@ -30,36 +30,32 @@ try {
     echo "<p>Conectado ao banco de dados: $dbname</p>";
     echo "<br>";
 
-    $sql = 'SELECT * FROM aluno';
+    // ================================================================================================
+    // Array contendo registros a serem inseridos no banco de dados, sendo que cada registro é um
+    // array associativo.
+    // ================================================================================================
+    $alunos = [
+        ['nome' => 'Maria', 'idade' => 26, 'cidade' => 'Natal'],
+        ['nome' => 'Edgar', 'idade' => 33, 'cidade' => 'João Pessoa'],
+        ['nome' => 'Joselito', 'idade' => 19, 'cidade' => 'Paulinia'],
+        ['nome' => 'Claudio', 'idade' => 36, 'cidade' => 'Lorena']
+    ];
 
     // ================================================================================================
-    // No acesso a banco de dados também existe o método prepare() para preparar as sentenças SQL a
-    // serem executadas no banco de dados, assim como o mysqli, e funciona da mesma maneira.
-    // 
-    // Também poderia ser utilizado $stmt->query(), nesse caso não seria necessário utilizar os dois
-    // métodos prepare() e execute().
-    //
-    // Ex.:
-    // $stmt = $pdo->query('SELECT * FROM aluno');
+    // Sentença SQL indicando quais campos serão utilizados e declaração dos parâmetros :nome, :idade
+    // $cidade, que serão substituídos pelos dados.
     // ================================================================================================
+    $sql = "INSERT INTO aluno (nome, idade, cidade) VALUES (:nome, :idade, :cidade)";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute();
 
     // ================================================================================================
-    // O método fetch() retorna cada registro encontrado em formato de array indexado por números e
-    // também por chaves associativas, sendo que cada chave é o nome da tabela no banco de dados na
-    // mesma ordem estrutural da tabela, logo.
-    // $row[0] e $row['idaluno'] possuem o mesmo valor, no caso, o id do aluno retornado.
-    //
-    // Quando não houveram mais registros a serem retornados, será retorno o valor null.
+    // Executa a leitura do array contendo os demais arrays com os dados e em seguida realiza uma
+    // chamada, a cada iteração, para que seja realizada a execução do insert no banco de dados.
     // ================================================================================================
-    while ($row = $stmt->fetch()) {
-        echo "<p>ID Aluno: {$row['idaluno']}</p>";
-        echo "<p>Nome Aluno: {$row['nome']}</p>";
-        echo "<p>Idade Aluno: {$row['idade']}</p>";
-        echo "<p>Cidade Aluno: {$row['cidade']}</p>";
-        echo "<hr>";
+    foreach ($alunos as $a) {
+        $stmt->execute($a);
     }
+    
 } catch (PDOException $ex) {
     echo "Erro: " . $ex->getMessage();
 }
