@@ -31,21 +31,11 @@ try {
     echo "<br>";
 
     // =================================================================================================
-    // Insert com parâmetros ? (interrogação) e passagem de array indexado para o método execute() do
-    // objeto $stmt.
+    // Sentença SQL UPDATE com utilização de parâmetros nomeados.
     // =================================================================================================
-    $sql = "INSERT INTO aluno (nome, idade, cidade) VALUES (?, ?, ?)";
+    $sql = "UPDATE aluno set cidade = :cidadealuno WHERE nome = :nomealuno";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['Giovana', 27, 'Araras']);
-
-    // =================================================================================================
-    // Insert com parâmetros nomeados e passagem de array associativo para o método execute() do
-    // objeto $stmt.
-    // =================================================================================================
-    $sql = "INSERT INTO aluno (nome, idade, cidade) VALUES (:nome, :idade, :cidade)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['nome' => 'Carlos', 'idade' => 23, 'cidade' => 'Jacareí']);
-    
+    $stmt->execute(['nomealuno' => 'Joao', 'cidadealuno' => 'Limeira']);
 } catch (PDOException $ex) {
     echo "Erro: " . $ex->getMessage();
 }
