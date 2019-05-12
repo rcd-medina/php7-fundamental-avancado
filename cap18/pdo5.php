@@ -30,51 +30,21 @@ try {
     echo "<p>Conectado ao banco de dados: $dbname</p>";
     echo "<br>";
 
-    // ================================================================================================
-    // Primeiro, cria se a sentença SQL com um parâmetro ? (interrogação), que será substituído logo
-    // em seguida. Quando o método execute() é chamado para executar a sentença SQL, passa se um array
-    // contendo o valor (dado) que será utilizado no lugar da ? (interrogação).
-    // Naturalmente esse valor pode ser conseguido de outra maneira, e não ser escrito diretamente no
-    // código, e em seguida passado como parâmetro dentro de um array.
-    // ================================================================================================
-    echo "<h1>Imprimindo dados</h1>";
-    $sql = "SELECT * FROM aluno WHERE nome = ?";
+    // =================================================================================================
+    // Insert com parâmetros ? (interrogação) e passagem de array indexado para o método execute() do
+    // objeto $stmt.
+    // =================================================================================================
+    $sql = "INSERT INTO aluno (nome, idade, cidade) VALUES (?, ?, ?)";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['Maria']);
+    $stmt->execute(['Giovana', 27, 'Araras']);
 
-    echo '<h3>Passando parâmetros para $stmt->execute([\'Maria\'])</h3>';
-    echo '<h5>Sentença SQL => "SELECT * FROM aluno WHERE nome = ?"</h5>';
-
-    while ($row = $stmt->fetch()) {
-        echo "<p>ID Aluno: {$row['idaluno']}";
-        echo "<p>Nome Aluno: {$row['nome']}";
-        echo "<p>Idade Aluno: {$row['idade']}";
-        echo "<p>Cidade Aluno: {$row['cidade']}";
-        echo "<hr>";
-    }
-
-    // ================================================================================================
-    // Outro exemplo, agora com parâmetro nomeado.
-    // Na sentença SQL, ele sempre é precedido por : (dois pontos) e o nome, ex.: :nomealuno.
-    // Quando ocorre a chamada ao método execute(), devemos passar um array associativo, onde a chave
-    // pode ser o nome do parâmetro sem os : (dois pontos), ou com, e o valor a ser buscado.
-    //
-    // Também pode ser utilizado em sentenças INSERT, DELETE E UPDATE.
-    // ================================================================================================
-    $sql = "SELECT * FROM aluno WHERE nome = :nomealuno";
+    // =================================================================================================
+    // Insert com parâmetros nomeados e passagem de array associativo para o método execute() do
+    // objeto $stmt.
+    // =================================================================================================
+    $sql = "INSERT INTO aluno (nome, idade, cidade) VALUES (:nome, :idade, :cidade)";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['nomealuno' => 'Maria']);
-
-    echo '<h3>Passando parâmetros para $stmt->execute([\'nomealuno\' => \'Maria\'])</h3>';
-    echo '<h5>Sentença SQL => "SELECT * FROM aluno WHERE nome = :nomealuno"</h5>';
-
-    while ($row = $stmt->fetch()) {
-        echo "<p>ID Aluno: {$row['idaluno']}";
-        echo "<p>Nome Aluno: {$row['nome']}";
-        echo "<p>Idade Aluno: {$row['idade']}";
-        echo "<p>Cidade Aluno: {$row['cidade']}";
-        echo "<hr>";
-    }
+    $stmt->execute(['nome' => 'Carlos', 'idade' => 23, 'cidade' => 'Jacareí']);
     
 } catch (PDOException $ex) {
     echo "Erro: " . $ex->getMessage();
