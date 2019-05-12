@@ -31,11 +31,11 @@ try {
     echo "<br>";
 
     // =================================================================================================
-    // 
+    // Sentença SQL para deleção de registros que tenham um nome que comece com Lu.
     // =================================================================================================
-    $sql = "";
+    $sql = "DELETE FROM aluno WHERE nome LIKE :nomealuno";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute();
+    $stmt->execute(['nomealuno' => 'Lu%']);
 } catch (PDOException $ex) {
     echo "Erro: " . $ex->getMessage();
 }
