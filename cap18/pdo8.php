@@ -31,11 +31,23 @@ try {
     echo "<br>";
 
     // =================================================================================================
-    // 
+    // Sentença SQL para recuperar o nome do aluno que tenha o idaluno = 10, que foi passado para o
+    // método execute() como parâmetro dentro de um array indexado.
+    // Em seguida instruímos o objeto $stmt a retornar apenas uma única coluna, no caso, a coluna nome.
     // =================================================================================================
-    $sql = "";
+    $sql = "SELECT nome FROM aluno WHERE idaluno = ?";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute();
+    $stmt->execute([10]);
+    $nome = $stmt->fetchColumn();
+    echo "<p>Nome: {$nome}</p>";
+
+    // =================================================================================================
+    // Sentença SQL para retornar a quantidade de registros que estão na tabela aluno.
+    // Desta vez como não há a necessidade passagem de parâmetros, utiliza se somente o método query()
+    // que também retorna um objeto PDOStatement.
+    // =================================================================================================
+    $count = $pdo->query("SELECT COUNT(*) FROM aluno")->fetchColumn();
+    echo "Quantidade de alunos: {$count}";
 } catch (PDOException $ex) {
     echo "Erro: " . $ex->getMessage();
 }
